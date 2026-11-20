@@ -119,7 +119,4 @@ Aplikasi menggunakan database bernama **`tp_mvc26`** yang skema dan datanya ters
 * **Tabel `research`**: Menyimpan data penelitian dosen (id, lecturer_id, title, year, funding), berelasi ke tabel `lecturers` (`ON DELETE SET NULL`).
 
 # Dokumentasi
-
-Video demonstrasi fungsionalitas aplikasi dapat dilihat pada:
-* File lokal: `Dokumentasi/record.mp4`
-* Link: https://github.com/user-attachments/assets/7fc5f2cb-1b8c-4d98-815a-4f88eea4634c
+https://github.com/user-attachments/assets/edc0a627-89ab-4a09-86aa-5ef103ce15f3
