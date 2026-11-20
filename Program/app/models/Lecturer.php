@@ -14,11 +14,11 @@ class Lecturer
     }
 
     /**
-     * Mengambil seluruh dosen, diurutkan berdasarkan nama.
+     * Mengambil seluruh dosen, diurutkan berdasarkan ID.
      */
     public function all(): array
     {
-        return $this->db->query("SELECT * FROM lecturers ORDER BY name ASC")->fetchAll();
+        return $this->db->query("SELECT * FROM lecturers ORDER BY id ASC")->fetchAll();
     }
 
     /**

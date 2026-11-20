@@ -21,7 +21,7 @@ class Course
         $sql = "SELECT c.*, l.name AS lecturer_name
                 FROM courses c
                 LEFT JOIN lecturers l ON l.id = c.lecturer_id
-                ORDER BY c.code ASC";
+                ORDER BY c.id ASC";
         return $this->db->query($sql)->fetchAll();
     }
 

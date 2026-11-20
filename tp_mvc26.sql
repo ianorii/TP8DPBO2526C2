@@ -1,7 +1,6 @@
 -- =====================================================================
 -- Database : tp_mvc26
--- Password : admin123
--- Import   : mysql -u root -padmin123 < db_passwordnya_admin123.sql
+-- Import   : mysql -u root < tp_mvc26.sql
 --            atau phpMyAdmin > Import
 -- =====================================================================
 
@@ -62,23 +61,27 @@ CREATE TABLE `research` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ---------------------------------------------------------------------
--- Data contoh
+-- Data contoh (Realistis)
 -- ---------------------------------------------------------------------
 INSERT INTO `lecturers` (`name`, `nidn`, `email`, `phone`, `join_date`) VALUES
-  ('Budi Santoso', '0412038501', 'budi.santoso@example.ac.id', '081234567801', '2015-08-17'),
-  ('Siti Aminah',  '0421059002', 'siti.aminah@example.ac.id',  '081234567802', '2018-01-08'),
-  ('Andi Wijaya',  '0408118803', 'andi.wijaya@example.ac.id',  '081234567803', '2012-09-03'),
-  ('Rina Kartika', '0430079204', 'rina.kartika@example.ac.id', '081234567804', '2020-02-10');
+  ('Prof. Dr. Budi Santoso, M.Kom.',     '0412038501', 'budi.santoso@upi.edu',   '0812-2145-8901', '2014-08-15'),
+  ('Dr. Siti Aminah, S.Kom., M.Cs.',    '0421059002', 'siti.aminah@upi.edu',    '0821-3498-7622', '2018-01-10'),
+  ('Andi Wijaya, S.T., M.T.',           '0408118803', 'andi.wijaya@upi.edu',    '0857-9812-4433', '2012-09-03'),
+  ('Rina Kartika, S.Kom., M.Kom.',      '0430079204', 'rina.kartika@upi.edu',   '0813-8821-9054', '2020-02-17'),
+  ('Dr. Hendra Gunawan, S.Si., M.T.',   '0415067805', 'hendra.gunawan@upi.edu', '0819-0456-1123', '2016-04-20');
 
 INSERT INTO `courses` (`lecturer_id`, `code`, `name`, `sks`, `semester`) VALUES
-  (1, 'IF101', 'Pemrograman Web',   3, 4),
-  (1, 'IF102', 'Basis Data',        3, 3),
-  (2, 'IF103', 'Struktur Data',     3, 3),
-  (2, 'SI201', 'Sistem Informasi Manajemen', 3, 5),
-  (3, 'TK301', 'Jaringan Komputer', 2, 4);
+  (1, 'IK210', 'Desain dan Pemrograman Berorientasi Objek', 3, 3),
+  (1, 'IK410', 'Kecerdasan Buatan dan Sains Data',          3, 5),
+  (2, 'IK220', 'Struktur Data dan Algoritma',               3, 3),
+  (2, 'IK510', 'Pemrograman Web Berbasis Komponen',         3, 6),
+  (3, 'IK330', 'Jaringan Komputer dan Komunikasi Data',      3, 4),
+  (4, 'IK310', 'Sistem Manajemen Basis Data',               3, 4),
+  (5, 'IK420', 'Rekayasa Perangkat Lunak',                  3, 5);
 
 INSERT INTO `research` (`lecturer_id`, `title`, `year`, `funding`) VALUES
-  (1, 'Pengembangan Sistem Informasi Akademik Berbasis Web', 2023, 7500000.00),
-  (2, 'Analisis Sentimen Media Sosial Menggunakan Machine Learning', 2024, 9000000.00),
-  (3, 'Optimasi Jaringan Wireless pada Kampus', 2022, 5000000.00),
-  (4, 'Sistem Pendukung Keputusan Penjadwalan Kuliah', 2024, 6500000.00);
+  (1, 'Penerapan Deep Learning untuk Deteksi Dini Retinopati Diabetik',                           2024, 35000000.00),
+  (2, 'Pengembangan Intelligent Tutoring System Berbasis Gamifikasi Adaptif',                     2024, 25000000.00),
+  (3, 'Analisis Kinerja Protokol Routing LoRaWAN pada Smart Campus',                              2023, 20000000.00),
+  (4, 'Sistem Rekomendasi Jalur Karir Lulusan Menggunakan Graph Neural Network',                  2024, 30000000.00),
+  (5, 'Pengembangan Arsitektur Microservices pada Sistem Monitoring Presensi Berbasis GPS',      2023, 22500000.00);

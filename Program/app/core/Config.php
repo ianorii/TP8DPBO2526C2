@@ -10,7 +10,7 @@ define('DB_HOST', '127.0.0.1');
 define('DB_PORT', 3306);
 define('DB_NAME', 'tp_mvc26');
 define('DB_USER', 'root');
-define('DB_PASS', 'admin123');
+define('DB_PASS', '');
 
 // URL dasar folder public, dihitung dari lokasi script.
 $scriptDir = rtrim(str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])), '/');

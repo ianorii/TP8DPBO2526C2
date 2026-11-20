@@ -1,273 +1,125 @@
-# TP8DPBO2526C2
-TUGAS PRAKTIKUM 8 DPBO MVC PHP Muhammad Rian Anugrah (2507241) Ilmu Komputer C2 Universitas Pendidikan Indonesia
+# Janji
+Saya Muhammad Rian Anugrah dengan NIM 2507241 mengerjakan Tugas Praktikum 8 pada Mata Kuliah Desain dan Pemrograman Berorientasi Objek (DPBO) untuk keberkahan-Nya maka saya tidak melakukan kecurangan seperti yang telah dispesifikasikan. Aamiin
 
-Aplikasi web berbasis **PHP Native + MySQL** dengan arsitektur **MVC (Model–View–Controller)**.  
-Digunakan untuk mengelola data:
+# Fitur Utama
 
-- Lecturers (Dosen)
-- Courses (Mata Kuliah)
-- Research (Penelitian)
+Aplikasi ini mendukung fungsionalitas CRUD (Create, Read, Update, Delete) penuh untuk tiga entitas utama:
 
-Semua tabel memiliki fitur **CRUD (Create, Read, Update, Delete)** dan tampilan menggunakan **Bootstrap**.
+* **CRUD Lecturers:** Menambah, melihat, mengubah, dan menghapus data dosen.
+* **CRUD Courses:** Menambah, melihat, mengubah, dan menghapus data mata kuliah.
+* **CRUD Research:** Menambah, melihat, mengubah, dan menghapus data penelitian dosen.
 
----
+## Relasi Database
+* **Lecturers ke Courses (1-N):** Satu dosen dapat mengampu banyak mata kuliah.
+* **Lecturers ke Research (1-N):** Satu dosen dapat memiliki banyak penelitian.
+  
 
-## 🚀 Fitur Utama
+# Struktur Arsitektur MVC
 
-| Modul | Fitur |
-|-------|-------|
-| Lecturers | Create, Read, Edit, Delete |
-| Courses | Create, Read, Edit, Delete + relasi ke Lecturer |
-| Research | Create, Read, Edit, Delete + relasi ke Lecturer |
+Proyek ini dibagi menjadi tiga komponen utama (Model, View, Controller) dan satu Router utama.
 
-### Relasi
-- LECTURERS (1) ────< (Many) COURSES
-- LECTURERS (1) ────< (Many) RESEARCH
+* **`Program/public/index.php` (Router Utama / Front Controller)**
+    * File ini adalah satu-satunya gerbang masuk untuk semua permintaan pengguna.
+    * Tugasnya membaca parameter `?page=` dan `?action=` dari URL.
+    * Berdasarkan URL, router memuat file Controller yang sesuai dan memanggil method (action) yang diminta.
 
+* **`Program/app/models/` (Model)**
+    * Bertanggung jawab untuk seluruh interaksi dan manipulasi data ke database MySQL menggunakan PDO.
+    * `Lecturer.php`: Berisi query SQL untuk CRUD tabel `lecturers`.
+    * `Course.php`: Berisi query SQL untuk CRUD tabel `courses` (termasuk JOIN ke tabel `lecturers`).
+    * `Research.php`: Berisi query SQL untuk CRUD tabel `research` (termasuk JOIN ke tabel `lecturers`).
 
-Courses & Research menggunakan **dropdown untuk memilih Lecturer**, dan index menampilkan **ID + nama lecturer**.
+* **`Program/app/controllers/` (Controller)**
+    * Bertindak sebagai penghubung logika antara Model dan View.
+    * `LecturerController.php`: Mengatur logika alur untuk menampilkan, menambah, mengubah, dan menghapus data dosen.
+    * `CourseController.php`: Mengatur logika CRUD mata kuliah serta mengambil data dosen untuk dropdown pengampu.
+    * `ResearchController.php`: Mengatur logika CRUD penelitian serta mengambil data dosen untuk dropdown peneliti.
 
----
+* **`Program/app/views/` (View)**
+    * Bertanggung jawab untuk tampilan antarmuka (UI) yang disajikan kepada pengguna menggunakan Bootstrap.
+    * `header.php` & `footer.php`: Template layout utama (navbar responsif, container, notifikasi flash, dan script Bootstrap).
+    * `lecturers/`, `courses/`, `research/`: Masing-masing modul memiliki subfolder tampilan yang terdiri dari:
+        1. `index.php` (Tabel daftar data)
+        2. `create.php` (Halaman form tambah data)
+        3. `edit.php` (Halaman form ubah data)
+        4. `_form.php` (Komponen form reusable)
 
-## 📂 Struktur Folder
+* **`Program/app/core/` (Core Engine)**
+    * `Config.php`: Mengatur konstanta aplikasi, konfigurasi kredensial database, dan perhitungan dinamis `BASE_URL`.
+    * `Database.php`: Kelas singleton penyedia koneksi PDO dengan prepared statements yang aman.
+
+# Struktur Proyek
+
+Proyek ini menggunakan arsitektur MVC (Model-View-Controller) dengan struktur folder berikut:
+
 ```
-tp_mvc26/
+TP8DPBO2526C2/
+├── Dokumentasi/
+│   ├── Diagram.png
+│   └── record.mp4
 │
-├── app/
-│   ├── controllers/
-│   │   ├── LecturerController.php
-│   │   ├── CourseController.php
-│   │   └── ResearchController.php
+├── Program/
+│   ├── app/
+│   │   ├── controllers/
+│   │   │   ├── CourseController.php
+│   │   │   ├── LecturerController.php
+│   │   │   └── ResearchController.php
+│   │   │
+│   │   ├── core/
+│   │   │   ├── Config.php
+│   │   │   └── Database.php
+│   │   │
+│   │   ├── models/
+│   │   │   ├── Course.php
+│   │   │   ├── Lecturer.php
+│   │   │   └── Research.php
+│   │   │
+│   │   └── views/
+│   │       ├── courses/
+│   │       │   ├── _form.php
+│   │       │   ├── create.php
+│   │       │   ├── edit.php
+│   │       │   └── index.php
+│   │       ├── lecturers/
+│   │       │   ├── _form.php
+│   │       │   ├── create.php
+│   │       │   ├── edit.php
+│   │       │   └── index.php
+│   │       ├── research/
+│   │       │   ├── _form.php
+│   │       │   ├── create.php
+│   │       │   ├── edit.php
+│   │       │   └── index.php
+│   │       ├── footer.php
+│   │       └── header.php
 │   │
-│   ├── models/
-│   │   ├── Lecturer.php
-│   │   ├── Course.php
-│   │   └── Research.php
+│   ├── database/
 │   │
-│   ├── views/
-│   │   ├── header.php
-│   │   ├── footer.php
-│   │   ├── lecturers/ (index, create, edit, _form)
-│   │   ├── courses/ (index, create, edit, _form)
-│   │   └── research/ (index, create, edit, _form)
-│   │
-│   └── core/
-│       ├── Database.php
-│       └── Config.php
+│   └── public/
+│       ├── assets/
+│       │   ├── css/
+│       │   │   └── bootstrap.min.css
+│       │   └── js/
+│       │       └── bootstrap.bundle.min.js
+│       └── index.php
 │
-├── public/
-│   ├── index.php   ← Router
-│   └── assets/     ← bootstrap.min.css, bootstrap.bundle.min.js
-│
-├── db_passwordnya_admin123.sql
-|
+├── tp_mvc26.sql
 └── README.md
 ```
 
-## 🧩 DESAIN PROGRAM — ARSITEKTUR MVC
+# Diagram
+<img src="Dokumentasi/Diagram.png" style="width: 100%;">
 
-Program dirancang agar setiap lapisan memiliki tanggung jawab yang jelas — View tidak berisi query database, Controller tidak berisi HTML, Model tidak berurusan dengan router.
+# Database
 
-```
-┌─────────────┐      ┌─────────────┐      ┌──────────────┐
-│ Controller  │ ---> │   Model     │ ---> │   Database   │
-└──────┬──────┘      └─────┬───────┘      └──────┬───────┘
-       │                   │                     │
-       ▼                   ▼                     │
-  menerima request   mengelola data            query SQL
-       │                                         │
-       ▼                                         │
-┌──────┴──────┐                                  │
-│    View     │ <--------------------------------┘
-└─────────────┘
-menampilkan UI kepada user
-```
+Aplikasi menggunakan database bernama **`tp_mvc26`** yang skema dan datanya tersimpan di file **`tp_mvc26.sql`**. Struktur database terdiri dari tiga tabel utama yang saling berelasi:
 
-## 📁 Penjelasan Folder `app/` — MVC Architecture Overview
+* **Tabel `lecturers`**: Menyimpan identitas dosen pengajar (id, name, nidn, email, phone, join_date).
+* **Tabel `courses`**: Menyimpan kurikulum mata kuliah (id, lecturer_id, code, name, sks, semester), berelasi ke tabel `lecturers` (`ON DELETE SET NULL`).
+* **Tabel `research`**: Menyimpan data penelitian dosen (id, lecturer_id, title, year, funding), berelasi ke tabel `lecturers` (`ON DELETE SET NULL`).
 
-Folder `app/` merupakan inti utama aplikasi dan berisi seluruh komponen pola arsitektur **MVC (Model – View – Controller)**.  
-Struktur di dalamnya terdiri dari 4 subfolder:
-```
-app/
-├─ controllers/
-├─ models/
-├─ views/
-└─ core/
-```
-Setiap bagian memiliki peran spesifik seperti berikut.
+# Dokumentasi
 
----
-
-### 🧠 `controllers/` — Pengatur Alur Aplikasi
-Berisi file **Controller**, yaitu bagian yang menerima request dari router kemudian menghubungkan View (<– user) dengan Model (<– database).
-
-| File | Fungsi |
-|------|--------|
-| `LecturerController.php` | Mengatur CRUD untuk Lecturers |
-| `CourseController.php` | Mengatur CRUD untuk Courses |
-| `ResearchController.php` | Mengatur CRUD untuk Research |
-
-Controller bertanggung jawab untuk:
-- menerima aksi pengguna (klik menu, submit form, edit, delete)
-- meminta data ke Model
-- mengirimkan data ke View untuk ditampilkan
-
-Tanpa controller, View akan bercampur dengan SQL dan menjadi tidak modular.
-
----
-
-### 🗄 `models/` — Logika Database
-Berisi **Model**, yaitu bagian yang berhubungan langsung dengan database melalui kelas `Database`.
-
-| File | Fungsi |
-|------|--------|
-| `Lecturer.php` | Query pada tabel lecturers |
-| `Course.php` | Query pada tabel courses |
-| `Research.php` | Query pada tabel research |
-
-Model berisi operasi:
-- `all()` — mengambil banyak data
-- `find()` — mengambil satu data berdasarkan ID
-- `create()` — menambahkan data baru
-- `update()` — memperbarui data
-- `delete()` — menghapus data
-
-Model **tidak** menampilkan HTML dan **tidak** menangani request pengguna.
-
----
-
-### 👁 `views/` — Tampilan HTML / UI
-Berisi semua file **View**, yaitu tampilan yang dilihat pengguna.
-```
-views/
-├─ lecturers/
-│ ├─ index.php
-│ ├─ create.php
-│ ├─ edit.php
-│ └─ _form.php
-├─ courses/
-│ ├─ index.php
-│ ├─ create.php
-│ ├─ edit.php
-│ └─ _form.php
-├─ research/
-│ ├─ index.php
-│ ├─ create.php
-│ ├─ edit.php
-│ └─ _form.php
-├─ header.php
-└─ footer.php
-```
----
-
-### ⚙ `core/` — Mesin MVC (Engine)
-Berisi class inti yang membuat MVC dapat berjalan.
-
-| File | Fungsi |
-|------|--------|
-| `Config.php` | Membuat `BASE_URL` otomatis untuk asset dan redirect serta konfigurasi DB |
-| `Database.php` | Mengatur koneksi database PDO (singleton) |
-
-Peran utama `core/`:
-- memastikan aplikasi tetap **portable** (tidak perlu ubah config walaupun nama folder berbeda)
-- mengelola koneksi database secara terpusat dan aman menggunakan prepared statement PDO
-
----
-
-## 🔗 Hubungan antar folder dalam `app/`
-
-```
-View  ↔  Controller  ↔  Model  ↔  Database
-            ▲
-            │
-      Router (public/index.php)
-```
-
-# 💿 DATABASE
-<img width="669" height="212" alt="Screenshot 2025-11-16 at 00 45 48" src="https://github.com/user-attachments/assets/5f94f78b-5ba5-41dd-b0e5-491376a975dc" />
-<br>
-
-## 🗄 Penjelasan Database
-
-Database pada aplikasi ini digunakan untuk menyimpan data **Lecturers**, **Courses**, dan **Research**.  
-Struktur database dibuat dengan konsep **relasi satu–ke–banyak (one-to-many)** antara tabel **lecturers** dengan tabel **courses** serta **research**.
-
----
-
-### 📌 Daftar Tabel
-
-Database terdiri dari **3 tabel utama**:
-
-| Tabel | Fungsi |
-|-------|--------|
-| `lecturers` | Menyimpan data dosen |
-| `courses` | Menyimpan data mata kuliah dan relasi ke dosen |
-| `research` | Menyimpan data penelitian dan relasi ke dosen |
-
----
-
-### 📍 Struktur Tabel `lecturers`
-Digunakan sebagai **tabel induk** untuk mengelola identitas dosen.
-
-| Field | Tipe | Keterangan |
-|-------|------|-------------|
-| `id` | INT UNSIGNED (PK, Auto Increment) | Primary key |
-| `name` | VARCHAR(100) | Nama dosen |
-| `nidn` | VARCHAR(20) | Nomor induk dosen nasional (Unique) |
-| `email` | VARCHAR(100) | Email dosen |
-| `phone` | VARCHAR(20) | Nomor telepon |
-| `join_date` | DATE | Tanggal bergabung |
-
----
-
-### 📍 Struktur Tabel `courses`
-Menyimpan daftar mata kuliah dan **menghubungkannya dengan dosen** melalui `lecturer_id`.
-
-| Field | Tipe | Keterangan |
-|-------|------|-------------|
-| `id` | INT UNSIGNED (PK, Auto Increment) | Primary key |
-| `lecturer_id` | INT UNSIGNED (FK) | Relasi ke `lecturers.id` |
-| `code` | VARCHAR(10) | Kode mata kuliah (Unique) |
-| `name` | VARCHAR(100) | Nama mata kuliah |
-| `sks` | TINYINT UNSIGNED | Jumlah SKS |
-| `semester` | TINYINT UNSIGNED | Semester pengajaran |
-
----
-
-### 📍 Struktur Tabel `research`
-Menyimpan data penelitian dosen.
-
-| Field | Tipe | Keterangan |
-|-------|------|-------------|
-| `id` | INT UNSIGNED (PK, Auto Increment) | Primary key |
-| `lecturer_id` | INT UNSIGNED (FK) | Relasi ke `lecturers.id` |
-| `title` | VARCHAR(150) | Judul penelitian |
-| `year` | SMALLINT UNSIGNED | Tahun penelitian |
-| `funding` | DECIMAL(12,2) | Pendanaan penelitian |
-
----
-
-## 🛠️ Panduan Instalasi & Menjalankan
-
-1. **Letakkan Proyek:**  
-   Pastikan folder proyek berada di direktori web server (misalnya `/opt/lampp/htdocs/TP8DPBO2526C2/` atau `C:/xampp/htdocs/TP8DPBO2526C2/`).
-
-2. **Import Database:**  
-   Database default bernama `tp_mvc26` dengan user `root` dan password `admin123`.  
-   Import via terminal:
-   ```bash
-   mysql -u root -padmin123 < db_passwordnya_admin123.sql
-   ```
-   Atau melalui **phpMyAdmin** → Tab **Import** → Pilih file `db_passwordnya_admin123.sql`.
-
-3. **Akses Aplikasi:**  
-   Buka browser dan akses URL:
-   ```
-   http://localhost/TP8DPBO2526C2/tp_mvc26/public/
-   ```
-
----
-
-# 📸 DEMO
-https://github.com/user-attachments/assets/393152ab-2ff9-4590-83e1-8b4c6bd8b3bd
-
+Video demonstrasi fungsionalitas aplikasi dapat dilihat pada:
+* File lokal: `Dokumentasi/record.mp4`
+* Link: https://github.com/user-attachments/assets/7fc5f2cb-1b8c-4d98-815a-4f88eea4634c

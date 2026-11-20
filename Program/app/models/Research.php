@@ -22,7 +22,7 @@ class Research
         $sql = "SELECT r.*, l.name AS lecturer_name
                 FROM research r
                 LEFT JOIN lecturers l ON l.id = r.lecturer_id
-                ORDER BY r.year DESC, r.id DESC";
+                ORDER BY r.id ASC";
         return $this->db->query($sql)->fetchAll();
     }
 
